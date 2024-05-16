@@ -1,0 +1,12 @@
+{
+  "name": "metadatos_backend_01",
+  "version": "1.0.0",
+  "description": "Metadatos backend mock",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "author": "Fumin tech",
+  "license": "ISC"
+}
