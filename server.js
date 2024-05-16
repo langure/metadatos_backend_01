@@ -236,6 +236,60 @@ app.post('/api/Sistemas/create', async (req, res) => {
     }
   });  
 
+  app.get('/api/Metadatos/getbyid', async (req, res) => {
+    try {
+      const metadatoId = req.body.id_metadato;
+  
+      const metadato = await Metadato.findById(metadatoId);
+  
+      if (!metadato) {
+        return res.status(404).json({ error: 'Metadato not found' });
+      }
+  
+      res.json(metadato);
+    } catch (error) {
+      console.error('Error fetching metadato:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  app.get('/api/Sistemas/getbyid', async (req, res) => {
+    try {
+      const sistemaId = req.body.id_sistema; // Get id_sistema from request body
+  
+      const sistema = await Sistema.findById(sistemaId);
+  
+      if (!sistema) {
+        return res.status(404).json({ error: 'Sistema not found' });
+      }
+  
+      res.json(sistema);
+    } catch (error) {
+      console.error('Error fetching sistema:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  app.get('/api/TiposDocumentos/getbyid', async (req, res) => {
+    try {
+      const documentoId = req.body.id_tipo_documento; 
+  
+      const documento = await Documento.findById(documentoId)
+        .populate('sistemas')
+        .populate('metadatos');
+  
+      if (!documento) {
+        return res.status(404).json({ error: 'Documento not found' });
+      }
+  
+      res.json(documento);
+    } catch (error) {
+      console.error('Error fetching documento:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
