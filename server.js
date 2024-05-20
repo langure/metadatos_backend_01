@@ -239,8 +239,8 @@ app.post('/api/Sistemas/create', async (req, res) => {
   app.post('/api/Metadatos/getbyid', async (req, res) => {
     try {
       const metadatoId = req.body.id_metadato;
-  
-      const metadato = await Metadato.findById(metadatoId);
+      const objectId = mongoose.Types.ObjectId.createFromHexString(metadatoId);
+      const metadato = await Metadato.findOne({ id_metadato: objectId });
   
       if (!metadato) {
         return res.status(404).json({ error: 'Metadato not found' });
@@ -254,11 +254,11 @@ app.post('/api/Sistemas/create', async (req, res) => {
   });
 
   app.post('/api/Sistemas/getbyid', async (req, res) => {
-    console.log(req.body);
     try {
       const sistemaId = req.body.id_sistema; // Get id_sistema from request body
-      console.log("sistemaId: " + sistemaId);
-      const sistema = await Sistema.findById(sistemaId);
+      const objectId = mongoose.Types.ObjectId.createFromHexString(sistemaId);
+      const sistema = await Sistema.findOne({ id_sistema: objectId });
+
       console.log("sistema: " + sistema);
   
       if (!sistema) {
@@ -275,10 +275,8 @@ app.post('/api/Sistemas/create', async (req, res) => {
   app.post('/api/TiposDocumentos/getbyid', async (req, res) => {
     try {
       const documentoId = req.body.id_tipo_documento; 
-  
-      const documento = await Documento.findById(documentoId)
-        .populate('sistemas')
-        .populate('metadatos');
+      const objectId = mongoose.Types.ObjectId.createFromHexString(documentoId);
+      const documento = await Documento.findOne({ id_tipo_documento: objectId }).populate('sistemas').populate('metadatos');
   
       if (!documento) {
         return res.status(404).json({ error: 'Documento not found' });
