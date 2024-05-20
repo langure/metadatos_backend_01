@@ -54,8 +54,7 @@ app.post('/api/Sistemas/create', async (req, res) => {
 
   app.put('/api/Sistemas/update', async (req, res) => {
     try {
-      const { sistema, nuevo_sistema, descripcion } = req.body;
-  
+      const { sistema, nuevo_sistema, descripcion } = req.body;  
       const updatedSistema = await Sistema.findOneAndUpdate(
         { sistema }, // Filter by the original 'sistema' value
         { sistema: nuevo_sistema, descripcion }, // Update fields
