@@ -236,7 +236,7 @@ app.post('/api/Sistemas/create', async (req, res) => {
     }
   });  
 
-  app.get('/api/Metadatos/getbyid', async (req, res) => {
+  app.post('/api/Metadatos/getbyid', async (req, res) => {
     try {
       const metadatoId = req.body.id_metadato;
   
@@ -253,11 +253,13 @@ app.post('/api/Sistemas/create', async (req, res) => {
     }
   });
 
-  app.get('/api/Sistemas/getbyid', async (req, res) => {
+  app.post('/api/Sistemas/getbyid', async (req, res) => {
+    console.log(req.body);
     try {
       const sistemaId = req.body.id_sistema; // Get id_sistema from request body
-  
+      console.log("sistemaId: " + sistemaId);
       const sistema = await Sistema.findById(sistemaId);
+      console.log("sistema: " + sistema);
   
       if (!sistema) {
         return res.status(404).json({ error: 'Sistema not found' });
@@ -270,7 +272,7 @@ app.post('/api/Sistemas/create', async (req, res) => {
     }
   });
 
-  app.get('/api/TiposDocumentos/getbyid', async (req, res) => {
+  app.post('/api/TiposDocumentos/getbyid', async (req, res) => {
     try {
       const documentoId = req.body.id_tipo_documento; 
   
